@@ -19,31 +19,40 @@
 （例如，使用手动 `h(...)` 调用时获取 props 验证），
 可以通过从 VSCode 命令面板运行 `Volar: Switch TS Plugin on/off` 来启用 Volar 的 `.vue` 类型支持插件。
 
-## 2.常用插件
+## 2.项目初始化
 
-2.1 [unplugin-vue-components](https://github.com/antfu/unplugin-vue-components/ )
-：组件的按需自动导入。
+###2.1 package命令：
+``` bash
+# 安装依赖
+yarn
+pnpm i
 
-+ vite.config.ts 中的配置插件
+# 启动本地服务
+yarn serve
 
-```ts
-// vite.config.ts
-import Components from 'unplugin-vue-components/vite'
+# 修复代码
+yarn lint
 
-export default defineConfig({
-  plugins: [
-    Components({ /* options */ }),
-  ],
-})
+# 测试服务器打包
+yarn build:test
+
+# 感知网(东区/西区)服务器打包
+yarn build:perceive-east
+yarn build:perceive-west
+
+# 公安网(东区/西区)服务器打包
+yarn build:police-east
+yarn build:police-west
 ```
 
 
-2.2 [vite-plugin-svg-icons](https://github.com/vbenjs/vite-plugin-svg-icons/blob/HEAD/README.zh_CN.md )
-：用于生成 svg 雪碧图。
+###2.2 常用插件配置
+####2.2.1 [vite-plugin-svg-icons](https://github.com/vbenjs/vite-plugin-svg-icons/blob/HEAD/README.zh_CN.md)
+生成 svg 雪碧图。
 
 + 配置：
 
-2.2.1 vite.config.ts
+2.2.1.1 vite.config.ts
 ```ts
 import viteSvgIcons from 'vite-plugin-svg-icons';
 import path from 'path';
@@ -61,13 +70,14 @@ export default () => {
   };
 };
 ```
-2.2.2 在 src/main.ts 内引入注册脚本
+2.2.1.2 在 src/main.ts 内引入注册脚本
 ```ts
 import 'virtual:svg-icons-register';
 ```
 
-2.3 [vite-plugin-compression](https://github.com/vbenjs/vite-plugin-compression/blob/HEAD/README.zh_CN.md )
-：使用 gzip 或者 brotli 来压缩资源。
+
+####2.2.2 [vite-plugin-compression](https://github.com/vbenjs/vite-plugin-compression/blob/HEAD/README.zh_CN.md )
+使用 gzip 或者 brotli 来压缩资源
 + vite.config.ts 中的配置插件
 ```ts
 import viteCompression from 'vite-plugin-compression';
@@ -114,36 +124,12 @@ VITE_APP_MAP_STREET_ID=0v8b4qex
 # 默认卫星地图ID
 VITE_APP_MAP_SATELLITE_ID=18bsypjc
 ```
-####2）package命令：
-``` bash
-# 安装依赖
-yarn
-pnpm i
 
-# 启动本地服务
-yarn serve
 
-# 修复代码
-yarn lint
-
-## 打包方式
-yarn build
-
-# 测试服务器打包
-yarn build:test
-
-# 感知网(东西区)服务器打包
-yarn build:perceive-east
-yarn build:perceive-west
-
-# 公安网(东西区)服务器打包
-yarn build:police-east
-yarn build:police-west
-```
 
 ##5.按需自动引入组件
 
-[unplugin-vue-components](https://github.com/antfu/unplugin-vue-components/ )
+[unplugin-vue-components](https://github.com/antfu/unplugin-vue-components/)
 是一款非常强大的插件，
 核心功能就是帮助你自动按需引入组件，Tree-shakable，只注册你使用的组件。
 这里说一下两个核心使用方式和配置方式。
@@ -298,7 +284,83 @@ UserLayout
 
 
 
-##8.
+##8.集成 Tailwind.css
+
+项目采用`reset.scss`重置样式，该文件由老项目的`reset.scss`
+
+[tailwind](https://www.tailwindcss.cn/docs/installation) 是一个 css 框架；
+它使用类(`class`)来控制样式，内部封装了数量庞大的样式选项供开发者使用。
+
+该项目推荐使用 Tailwind ，但是不强制使用
+
+由此一来，基本很少再使用 `<style>` 标签去转本定义一些 `class` 和样式，
+因为定义类名需要**规范**和**英文**
+使用`tailwind.CSS`后，预处理器的作用就会显得微乎其微，
+因为无需再自定定义各种变量和 mixins。
+
+
+###8.1 效率提升
+
+关于样式要与结构分离的话题，tailwind 显然是一个与 HTML 紧密结合的工具；
+但因为现在使用 vue 框架，结果是高度组件化，样式分离是为了方便复用和维护，但在组件化面前样式分离只能是降低开发效率。
+
+tailwind 提升效率的方面：
+
++ 提供了大量的功能类，极大的提高了可维护性
++ 响应式设计，各种设备只需要一次配置
++ 悬停、焦点和其它状态
++ 深色模式
+
+
+###8.2 JIT 模式
+
+当前环境支持 postcss8（vue/cli 构建的 vue2 项目是 postcss7）
+
+如果你的环境支持 postcss8（ vue/cli 构建的 vue2 项目是 postcss7 ），那么 JIT 模式直接带你起飞。
+
+它的优势：
+
++ 超快的构建速度
++ 支持变体，你甚至可以这么写 sm:hover:active:disabled:opacity-75
++ 支持任意样式，例如 md:top-[-113px]
++ 开发和生产环境结果是一致的（vue2 项目可能出现组件库构建结果不一致的问题）
+
+使用 vscode 的同学，强烈建议安装
+[Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
+插件，它可以自动补全类名，显著降低学习成本
+
+
+###8.3 打包体积
+使用默认配置，未压缩是 3739.4kB，
+Gzip压缩 是 293.9kB，Brotli压缩 是 73.2kB。
+这样会使项目包过大（虽然我们不在乎包的大小），
+这因为 tailwind 提供了成千上万的功能类，其中绝大部分不会使用到。
+
+当构建生产时，你应该使用 purge 选项来 tree-shake 优化未使用的样式，
+并优化您的最终构建大小当使用 Tailwind 删除未使用的样式时，
+最终很难得到超过 10kb 的压缩 CSS。
++ tailwind.config.js增加配置：
+```js
+module.exports = {
+  purge: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
+}
+```
+还有一点`Atom CSS`极大的提升了样式的复用程度，从而直接降低了构建体积
+
+
+
+## 9.Vuex与Pinia
+
+由于Vuex4对于TypeScript的支持一言难尽（需要很繁琐的配置），
+所以项目使用[Pinia](https://pinia.vuejs.org)进行状态管理，
+同时Vue devtools支持Pinia。
+
+### 9.1 Pinia的优势
++ **Pinia** 的 API 设计非常接近 `Vuex 5` 的提案（作者是 Vue 核心团队成员）
++ 无需像 `Vuex 4` 自定义复杂的类型来支持 typescript，天生具备完美的类型推断
++ 模块化设计，引入的每一个 store 在打包时都可以自动拆分他们
++ 无嵌套结构，但可以在任意的 store 之间交叉组合使用
++ Pinia 与 Vue devtools 挂钩，不会影响 Vue 3 开发体验
 
 
 
@@ -308,21 +370,7 @@ UserLayout
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-##n.xxx
+## n.xxx
 
 src文件内容
 ```tree
