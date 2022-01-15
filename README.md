@@ -46,13 +46,21 @@ yarn build:police-west
 ```
 
 
-###2.2 常用插件配置
-####2.2.1 [vite-plugin-svg-icons](https://github.com/vbenjs/vite-plugin-svg-icons/blob/HEAD/README.zh_CN.md)
+###2.2 安装的插件/组件库
+####2.2.1 [element-plus](https://element-plus.gitee.io/zh-CN/component/button.html)
+Element支持Vue3的版本，由于element-plus是beta版本，所以不强制使用，后续做更改；
+
+当然，也可以使用[ant-design-vue](https://next.antdv.com/docs/vue/migration-v3-cn )的v2/v3(beta)版本，但是不建议使用v2，因为它不支持vue3的新特性
+
+或者[Tdesign-next](https://tdesign.tencent.com/vue-next/components/overview )，但Tdesgin还在alpha版本，可以了解，不建议使用
+
+
+####2.2.2 [vite-plugin-svg-icons](https://github.com/vbenjs/vite-plugin-svg-icons/blob/HEAD/README.zh_CN.md)
 生成 svg 雪碧图。
 
 + 配置：
 
-2.2.1.1 vite.config.ts
+step1： vite.config.ts
 ```ts
 import viteSvgIcons from 'vite-plugin-svg-icons';
 import path from 'path';
@@ -70,13 +78,13 @@ export default () => {
   };
 };
 ```
-2.2.1.2 在 src/main.ts 内引入注册脚本
+step2： 在 src/main.ts 内引入注册脚本
 ```ts
 import 'virtual:svg-icons-register';
 ```
 
 
-####2.2.2 [vite-plugin-compression](https://github.com/vbenjs/vite-plugin-compression/blob/HEAD/README.zh_CN.md )
+####2.2.3 [vite-plugin-compression](https://github.com/vbenjs/vite-plugin-compression/blob/HEAD/README.zh_CN.md )
 使用 gzip 或者 brotli 来压缩资源
 + vite.config.ts 中的配置插件
 ```ts
@@ -88,6 +96,8 @@ export default () => {
   };
 };
 ```
+
+
 
 ##3.使用 Typescript
 Vite 天然支持引入`.ts`文件。
