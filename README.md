@@ -364,14 +364,144 @@ module.exports = {
 由于Vuex4对于TypeScript的支持一言难尽（需要很繁琐的配置），
 所以项目使用[Pinia](https://pinia.vuejs.org)进行状态管理，
 同时Vue devtools支持Pinia。
+```tree
+├─src
+  └─store
+    ├─user
+    ├─login
+    └─other
+```
 
 ### 9.1 Pinia的优势
-+ **Pinia** 的 API 设计非常接近 `Vuex 5` 的提案（作者是 Vue 核心团队成员）
-+ 无需像 `Vuex 4` 自定义复杂的类型来支持 typescript，天生具备完美的类型推断
++ **Pinia** 的 API 设计非常接近`Vuex 5`的提案（作者是 Vue 核心团队成员）
++ 无需像`Vuex 4`自定义复杂的类型来支持 typescript，天生具备完美的类型推断
 + 模块化设计，引入的每一个 store 在打包时都可以自动拆分他们
 + 无嵌套结构，但可以在任意的 store 之间交叉组合使用
 + Pinia 与 Vue devtools 挂钩，不会影响 Vue 3 开发体验
 
+
+### 9.2 创建 Store
+
+Pinia 已经内置在脚手架中，并且与 vue 已经做好了关联，你可以在任何位置创建一个 store：
+```ts
+import { defineStore } from 'pinia'
+
+export const useUserStore = defineStore({
+  id: 'user',
+  state: () =>({
+    name: 'ming',
+  }),
+  getters: {},
+  actions: {},
+})
+```
+
+这与 Vuex 有很大不同，它是标准的 Javascript 模块导出，
+这种方式也让开发人员和 IDE 更加清楚 store 来自哪里。
+
+Pinia 与 Vuex 的区别：
++ **id** 是必要的，它将所使用 store 连接到 devtools，不同的仓库使用`id`区分
++ 创建方式：`new Vuex.Store(...)`(vuex3)，`createStore(...)`(vuex4)。
++ 对比于 vuex3 ，state 现在是一个**函数返回对象**。
++ 没有 **mutations**，不用担心，state 的变化依然记录在 devtools 中。
+
+
+### 9.3 State
++ 创建store
+
+创建好后，在 state 中新增属性：
+```ts
+state: () => ({
+  name: 'ming',
+  age: 18,
+})
+```
+将 store 中的 state 属性设置为一个函数，该函数返回一个包含不同状态值的对象，
+这与我们在组件中定义数据的方式非常相似。
+
++ 在模板中使用 store：
+
+可以从 store 中获取到 age 的状态，并修改状态：
+```vue
+<script setup lang="ts">
+  // 引入userStore仓库
+  import { useUserStore } from '/src/store';
+  const userStore = useUserStore();
+</script>
+
+<template>
+  <div @click="userStore.age++">{{ userStore.age }}</div>
+</template>
+```
+注意这里并**不需要**这样写`userStore.state.age`；
+
+虽然上面的写法很舒适，但是不可以用解构的方式去提取它内部的值，这样的话，会失去它的响应式：
+```ts
+// 这种写法会失去响应式
+let { name, age } = useUserStore()
+```
+
+### 9.4 Getters
+Pinia 中的 getter 与 Vuex 中的 getter 、组件中的计算属性具有相同的功能，
+传统的函数声明使用 this 代替了 state 的传参方法，
+但箭头函数还是要使用函数的第一个参数来获取 state
++ 创建
+```ts
+{
+  getters: {
+    nameLength(): number{
+      return this.name.length
+    }
+  }
+  // 或
+  getters: {
+    nameLength: state => state.name.length
+    // nameLength: ()=> this.name.length ❌ 
+  }
+}
+```
++ 使用
+```ts
+{{ userStore.nameLength }}
+```
+
+### 9.5 Actions
+这里与 Vuex 有极大的不同，Pinia 仅提供了一种方法来定义如何更改状态的规则，
+放弃 mutations 只依靠 Actions。
+
+#### ①特点：
+Pinia 让 Actions 使用起来更加的灵活：
++ 可以通过组件或其他 action 调用
++ 可以从其他 store 的 action 中调用
++ 直接在商店实例上调用
++ 支持**同步**或**异步**
++ 有任意数量的参数
++ 可以包含有关如何更改状态的逻辑（也就是 vuex 的 mutations 的作用）
++ 可以`$patch`方法直接更改状态属性
+
+#### ②使用：
+store中设置actions：
+```ts
+actions: {
+  async getData(page){
+    await requsetData(page);
+    this.name = 'xxx';
+  }
+}
+```
+组件中使用：
+```vue
+<script lang="ts" setup>
+import { definedStore } from '@/store';
+
+const defStore = definedStore();
+
+defStore.getData(2);
+</script>
+```
+
+
+## 10.
 
 
 

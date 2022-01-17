@@ -14,8 +14,23 @@ import viteCompression from 'vite-plugin-compression';
 import viteSvgIcons from 'vite-plugin-svg-icons';
 import path from 'path';
 
+// 重写resolve方法
+function _resolve(dir: string){
+  return path.resolve(__dirname, dir);
+}
+
 // https://vitejs.dev/config/
 export default defineConfig({
+  resolve: {
+    alias: {
+      '@': _resolve('src'),
+      '@assets': _resolve('src/assets'),
+      '@comps': _resolve('src/components'),
+      '@utils': _resolve('src/utils'),
+      '@router': _resolve('src/router'),
+      '@store': _resolve('src/store'),
+    }
+  },
   plugins: [
     vue(),
     // 自动引入组件

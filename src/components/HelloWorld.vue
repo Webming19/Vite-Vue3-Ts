@@ -1,37 +1,12 @@
-<template>
-  <div class="demo-date-picker">
-    <el-row class="mb-4">
-      <el-button round>Round</el-button>
-      <el-button type="primary" round>Primary</el-button>
-      <el-button type="success" round>Success</el-button>
-      <el-button type="info" round>Info</el-button>
-      <el-button type="warning" round>Warning</el-button>
-      <el-button type="danger" round>Danger</el-button>
-    </el-row>
-    <div class="block">
-      <span class="demonstration">Default</span>
-      <el-date-picker v-model="value1" type="date" placeholder="Pick a day">
-      </el-date-picker>
-    </div>
-    <div class="block">
-      <span class="demonstration">Picker with quick options</span>
-      <el-date-picker
-        v-model="value2"
-        type="date"
-        placeholder="Pick a day"
-        :disabled-date="disabledDate"
-        :shortcuts="shortcuts"
-      >
-      </el-date-picker>
-    </div>
-  </div>
-</template>
-
 <script lang="ts" setup>
-import { ref } from 'vue'
+import {onMounted, ref} from 'vue';
+import { definedStore } from '@/store';
+
+let defStore = definedStore();
+
+defStore.defNameGo();
 
 const value1 = ref('')
-const value2 = ref('')
 
 const shortcuts = [
   {
@@ -60,3 +35,19 @@ const disabledDate = (time: Date) => {
   return time.getTime() > Date.now()
 }
 </script>
+
+<template>
+  <div class="demo-date-picker">
+    <el-row class="mb-4">
+      <el-button round>Round</el-button>
+      <el-button type="primary" round>Primary</el-button>
+      <el-button type="success" round>Success</el-button>
+    </el-row>
+    <div class="block">
+      <span class="demonstration">Default</span>
+      <el-date-picker v-model="value1" type="date" placeholder="Pick a day">
+      </el-date-picker>
+    </div>
+    <div style="background: yellow;width: 100px;height: 100px">{{ defStore.nameLength }} | {{ defStore.defName }}</div>
+  </div>
+</template>
