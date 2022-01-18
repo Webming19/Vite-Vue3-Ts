@@ -14,12 +14,13 @@ const locale = zhCn;
     <SvgIcon class="icon" name="wx" color="#FFF" />
     <HelloWorld />
     <section>
+      <!-- 测试 Tailwind CSS -->
       <div class="w-1/2 h-3/5 bg-green-900"></div>
     </section>
   </el-config-provider>
 </template>
 
-<style>
+<style scoped lang="scss">
 #app{
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -32,5 +33,9 @@ section{
   width: 200px;
   height: 200px;
   background: yellowgreen;
+}
+// nprogress样式配置
+#nprogress .bar {
+  background: #35495E !important; //自定义颜色
 }
 </style>

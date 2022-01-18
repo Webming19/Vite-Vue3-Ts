@@ -46,8 +46,8 @@ yarn build:police-west
 ```
 
 
-###2.2 安装的插件/组件库
-####2.2.1 [element-plus](https://element-plus.gitee.io/zh-CN/component/button.html)
+### 2.2 安装的插件/组件库
+#### 2.2.1 [element-plus](https://element-plus.gitee.io/zh-CN/component/button.html)
 Element支持Vue3的版本，由于element-plus是beta版本，所以不强制使用，后续做更改；
 
 当然，也可以使用[ant-design-vue](https://next.antdv.com/docs/vue/migration-v3-cn )的v2/v3(beta)版本，但是不建议使用v2，因为它不支持vue3的新特性
@@ -55,7 +55,7 @@ Element支持Vue3的版本，由于element-plus是beta版本，所以不强制�
 或者[Tdesign-next](https://tdesign.tencent.com/vue-next/components/overview )，但Tdesgin还在alpha版本，可以了解，不建议使用
 
 
-####2.2.2 [vite-plugin-svg-icons](https://github.com/vbenjs/vite-plugin-svg-icons/blob/HEAD/README.zh_CN.md)
+#### 2.2.2 [vite-plugin-svg-icons](https://github.com/vbenjs/vite-plugin-svg-icons/blob/HEAD/README.zh_CN.md)
 生成 svg 雪碧图。
 
 + 配置：
@@ -84,7 +84,7 @@ import 'virtual:svg-icons-register';
 ```
 
 
-####2.2.3 [vite-plugin-compression](https://github.com/vbenjs/vite-plugin-compression/blob/HEAD/README.zh_CN.md )
+#### 2.2.3 [vite-plugin-compression](https://github.com/vbenjs/vite-plugin-compression/blob/HEAD/README.zh_CN.md )
 使用 gzip 或者 brotli 来压缩资源
 + vite.config.ts 中的配置插件
 ```ts
@@ -97,6 +97,17 @@ export default () => {
 };
 ```
 
+
+#### 2.2.4 [@types/nprogress](https://www.npmjs.com/package/@types/nprogress)
+页面顶部加载条插件
+
+颜色配置：
+```scss
+// nprogress样式配置
+#nprogress .bar {
+  background: #35495E !important; //自定义颜色
+}
+```
 
 
 ##3.使用 Typescript
@@ -359,9 +370,9 @@ module.exports = {
 
 
 
-## 9.Vuex与Pinia
+## 9.Pinia 状态管理
 
-由于Vuex4对于TypeScript的支持一言难尽（需要很繁琐的配置），
+由于Vuex4对于TypeScript的支持一言难尽（需要极其繁琐的配置），
 所以项目使用[Pinia](https://pinia.vuejs.org)进行状态管理，
 同时Vue devtools支持Pinia。
 ```tree
@@ -382,12 +393,16 @@ module.exports = {
 
 ### 9.2 创建 Store
 
-Pinia 已经内置在脚手架中，并且与 vue 已经做好了关联，你可以在任何位置创建一个 store：
+Pinia 已经内置在脚手架中，并且与 vue 已经做好了关联，你可以在任何位置创建一个 store
+
+每个单独的store暴露方法名称采用`useNameStore`（**小驼峰**）；
+并且必须有单独的`id`，命名方式采用`name-store`形式（**中划线**），
+两个name与保持一致，方便devtools中查看数据
 ```ts
 import { defineStore } from 'pinia'
 
 export const useUserStore = defineStore({
-  id: 'user',
+  id: 'user-store',
   state: () =>({
     name: 'ming',
   }),
@@ -501,7 +516,116 @@ defStore.getData(2);
 ```
 
 
-## 10.
+## 10.基于 mitt 处理组件间事件联动
+后续补充，暂时不用
+
+
+## 11.异步请求
+对于存在大量的接口的项目，需要做到以下几点：
+
++ 封装请求。
++ 统一的 API 接口管理。
++ Mock 数据功能（根据需求斟酌使用）
+
+主要目的是在帮助我们简化代码和利于后期的更新维护
+
+### 11.1 基于 axios 的封装
+ axios 作为PC、移动端项目中最常用的请求工具，在这里提供一些封装的思路：
+
++ 通过 `import.meta.env.VITE_APP_BASE_URL` 获取环境变量，配置 baseURL，
+如果接口存在多个不同域名，可以通过 js 变量控制。
++ 设置 timeout 请求超时、断网情况处理。
++ 设置请求头，携带 token。
++ 异常拦截处理，后端通过你携带的 token 判断你是否过期，
+如果返回 401 你可能需要跳转到登录页面，并提示需要重新登录。
++ 响应拦截，通常后端返回 code、data、msg，如果是请求正常，
+我们可以直接返回 data 数据，如果是异常的 code，我们也可以在这里直接弹出报错提示。
++ 无感刷新 token，如果你的 token 过期，
+可以通过后端返回的 refreshToken 调用刷新接口，获取新的 token。
+这一步骤设计很多细节，例如终端请求、重新发送请求、重新请求列队。
++ 中断请求，例如页面切换时，我们要中断正在发生的请求。
+
+
+### 11.2 为 axios 增加泛型的支持
+
+到目前为止，axios 请求返回的类型是 any，
+这时我们对请求后的数据进行操作时，浪费了 ts 带来的类型提示。
+
+这时我们要做的就是重新声明axios模块： 新建一个`shims.d.ts`，然后在调用时加上泛型。
+```ts
+import { AxiosRequestConfig } from 'axios';
+
+declare module 'axios' {
+  export interface AxiosInstance {
+    <T = any>(config: AxiosRequestConfig): Promise<T>;
+    request<T = any>(config: AxiosRequestConfig): Promise<T>;
+    get<T = any>(url: string, config?: AxiosRequestConfig): Promise<T>;
+    delete<T = any>(url: string, config?: AxiosRequestConfig): Promise<T>;
+    head<T = any>(url: string, config?: AxiosRequestConfig): Promise<T>;
+    post<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T>;
+    put<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T>;
+    patch<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T>;
+  }
+}
+```
+增加泛型后，必须在创建接口时，声明请求相应数据的类型。
+
+
+### 11.3 封装更方便的 useRequest
+设想一下，编写请求代码时，我们通常会定义这么几个变量：
++ data: 储存请求数据
++ loading: 请求加载状态
+
+尤其是 loading，需要在请求前设置为 true，请求结束后设置为 false。
+
+上面的封装方式，是对基础的功能封装，在vue3中，
+可以进行再一次的封装成为 hook，我们使用起来会更加方便。
+
+例如下面这个样子：
+
++ 使用 useRequest 定义一个接口：
+```ts
+export default getUserInfo(id) {
+  return useRequest({
+    method: 'get',
+    url: '/api/user',
+    params: { id }
+  })
+}
+```
++ 使用此接口：
+```ts
+const { data, loading } = getUserInfo();
+```
+> 这里的 data 是响应式的
+
+### 11.4 统一的 API 接口管理
+自从前端和后端分家之后，前后端接口对接就成为了常态，而对接接口的过程就离不开接口文档，
+比较主流就是 Swagger。
+
+在 src 目录中 创建 api 目录，内部目录应按照后端制定的模块创建。
+每个模块中创建多个 ts 文件，一个接口应对应一个 ts 文件，其中包含了以下内容：
+
++ 请求参数的类型声明。
++ 响应数据的类型声明。
++ 返回定义好的请求函数（url、method、params、data 等）。
+
+统一去定义和管理 API 接口，只要后端规范的命名和你认真的写好类型声明，
+对前端来说 typescript 就是最好的接口文档。
+
+### 11.5 mock
+vite 使用 mock 数据非常简单，你可以使用 vite-plugin-mock 插件，
+了解 mockjs，即可快速上手。
+
+
+
+
+
+
+
+
+
+
 
 
 

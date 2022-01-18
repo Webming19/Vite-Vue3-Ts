@@ -1,39 +1,14 @@
 <script lang="ts" setup>
-import {onMounted, ref} from 'vue';
-import { definedStore } from '@/store';
-
-let defStore = definedStore();
-
-defStore.defNameGo();
+import { onMounted, ref } from 'vue';
+import login from '@/apis/login';
+login({ username:'ls', password:'456' }).then(res=>{
+  sessionStorage.setItem('Authorization', res.data?.result.accessToken)
+  console.log('res==>', res);
+  return res;
+})
 
 const value1 = ref('')
 
-const shortcuts = [
-  {
-    text: 'Today',
-    value: new Date(),
-  },
-  {
-    text: 'Yesterday',
-    value: () => {
-      const date = new Date()
-      date.setTime(date.getTime() - 3600 * 1000 * 24)
-      return date
-    },
-  },
-  {
-    text: 'A week ago',
-    value: () => {
-      const date = new Date()
-      date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
-      return date
-    },
-  },
-]
-
-const disabledDate = (time: Date) => {
-  return time.getTime() > Date.now()
-}
 </script>
 
 <template>
@@ -48,6 +23,5 @@ const disabledDate = (time: Date) => {
       <el-date-picker v-model="value1" type="date" placeholder="Pick a day">
       </el-date-picker>
     </div>
-    <div style="background: yellow;width: 100px;height: 100px">{{ defStore.nameLength }} | {{ defStore.defName }}</div>
   </div>
 </template>
