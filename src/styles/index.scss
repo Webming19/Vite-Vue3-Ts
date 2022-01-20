@@ -1,6 +1,8 @@
-// 引入Tailwind
-// Tailwind重置样式
 @import "./reset.scss";
-//@tailwind base;
+// 引入Tailwind
+/*
+// Tailwind重置样式
+@tailwind base;
+*/
 @tailwind components;
 @tailwind utilities;

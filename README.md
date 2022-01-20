@@ -110,6 +110,35 @@ export default () => {
 ```
 
 
+#### 2.2.4 [unplugin-auto-import](https://github.com/antfu/unplugin-auto-import#readme)
+自动导入函数插件
+
++ 配置：
+```ts
+// 自动导入函数插件
+import AutoImport from 'unplugin-auto-import/vite';
+
+export default defineConfig({
+  plugins: [
+    AutoImport({
+      // Auto import functions from Vue, e.g. ref, reactive, toRef...
+      // 自动导入 Vue 相关函数，如：ref, reactive, toRef 等
+      imports: ['vue'],
+
+      // Auto import functions from Element Plus, e.g. ElMessage, ElMessageBox... (with style)
+      // 自动导入 Element Plus 相关函数，如：ElMessage, ElMessageBox... (带样式)
+      resolvers: [ElementPlusResolver()],
+
+      dts: path.resolve(_resolve('src'), 'auto-imports.d.ts'),
+    })
+  ],
+})
+```
+
+
+
+
+
 ##3.使用 Typescript
 Vite 天然支持引入`.ts`文件。
 ```json
@@ -525,9 +554,9 @@ defStore.getData(2);
 
 + 封装请求。
 + 统一的 API 接口管理。
-+ Mock 数据功能（根据需求斟酌使用）
++ Mock 数据功能（该项目暂无此项功能）
 
-主要目的是在帮助我们简化代码和利于后期的更新维护
+目的是在帮助我们简化代码和利于后期的更新维护
 
 ### 11.1 基于 axios 的封装
  axios 作为PC、移动端项目中最常用的请求工具，在这里提供一些封装的思路：
@@ -540,10 +569,7 @@ defStore.getData(2);
 如果返回 401 你可能需要跳转到登录页面，并提示需要重新登录。
 + 响应拦截，通常后端返回 code、data、msg，如果是请求正常，
 我们可以直接返回 data 数据，如果是异常的 code，我们也可以在这里直接弹出报错提示。
-+ 无感刷新 token，如果你的 token 过期，
-可以通过后端返回的 refreshToken 调用刷新接口，获取新的 token。
-这一步骤设计很多细节，例如终端请求、重新发送请求、重新请求列队。
-+ 中断请求，例如页面切换时，我们要中断正在发生的请求。
++ 中断请求，例如页面切换时，我们要中断正在发生的请求（缺少）。
 
 
 ### 11.2 为 axios 增加泛型的支持
@@ -551,71 +577,36 @@ defStore.getData(2);
 到目前为止，axios 请求返回的类型是 any，
 这时我们对请求后的数据进行操作时，浪费了 ts 带来的类型提示。
 
-这时我们要做的就是重新声明axios模块： 新建一个`shims.d.ts`，然后在调用时加上泛型。
+这时我们要做的就是重新声明axios模块：
 ```ts
-import { AxiosRequestConfig } from 'axios';
-
-declare module 'axios' {
-  export interface AxiosInstance {
-    <T = any>(config: AxiosRequestConfig): Promise<T>;
-    request<T = any>(config: AxiosRequestConfig): Promise<T>;
-    get<T = any>(url: string, config?: AxiosRequestConfig): Promise<T>;
-    delete<T = any>(url: string, config?: AxiosRequestConfig): Promise<T>;
-    head<T = any>(url: string, config?: AxiosRequestConfig): Promise<T>;
-    post<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T>;
-    put<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T>;
-    patch<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T>;
-  }
+// 定义调用传输的参数
+interface Http {
+  get<T>(url: string, config?: AxiosRequestConfig): Promise<ResType<T>>
+  delete<T>(url: string, config?: AxiosRequestConfig): Promise<ResType<T>>
+  post<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ResType<T>>
+  put<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ResType<T>>
 }
 ```
-增加泛型后，必须在创建接口时，声明请求相应数据的类型。
 
 
-### 11.3 封装更方便的 useRequest
-设想一下，编写请求代码时，我们通常会定义这么几个变量：
-+ data: 储存请求数据
-+ loading: 请求加载状态
+### 11.3 统一的 API 接口管理
+自从前端和后端分家之后，前后端接口对接就成为了常态，而对接接口的过程就离不开接口文档。
 
-尤其是 loading，需要在请求前设置为 true，请求结束后设置为 false。
-
-上面的封装方式，是对基础的功能封装，在vue3中，
-可以进行再一次的封装成为 hook，我们使用起来会更加方便。
-
-例如下面这个样子：
-
-+ 使用 useRequest 定义一个接口：
 ```ts
-export default getUserInfo(id) {
-  return useRequest({
-    method: 'get',
-    url: '/api/user',
-    params: { id }
-  })
+// 定义接口，限制请求&响应数据类型
+interface ResType<T> {
+  code: number | string
+  data?: T
+  msg: string
 }
 ```
-+ 使用此接口：
-```ts
-const { data, loading } = getUserInfo();
-```
-> 这里的 data 是响应式的
 
-### 11.4 统一的 API 接口管理
-自从前端和后端分家之后，前后端接口对接就成为了常态，而对接接口的过程就离不开接口文档，
-比较主流就是 Swagger。
 
-在 src 目录中 创建 api 目录，内部目录应按照后端制定的模块创建。
-每个模块中创建多个 ts 文件，一个接口应对应一个 ts 文件，其中包含了以下内容：
-
-+ 请求参数的类型声明。
-+ 响应数据的类型声明。
-+ 返回定义好的请求函数（url、method、params、data 等）。
-
-统一去定义和管理 API 接口，只要后端规范的命名和你认真的写好类型声明，
-对前端来说 typescript 就是最好的接口文档。
 
 ### 11.5 mock
-vite 使用 mock 数据非常简单，你可以使用 vite-plugin-mock 插件，
-了解 mockjs，即可快速上手。
+(缺少)
+vite 使用 mock 数据非常简单，使用 vite-plugin-mock 插件，mock数据。
+
 
 
 

@@ -1,6 +1,4 @@
 import axios, { AxiosRequestConfig, AxiosResponse, Method } from 'axios';
-import { ElMessage } from 'element-plus';
-// import NProgress from 'nprogress';
 
 // 全局变量
 // console.log('环境变量env==>', import.meta.env)
@@ -31,6 +29,11 @@ axios.interceptors.response.use(
     // 判断返回的状态
     switch (response.status) {
       case 200:
+        ElMessage({
+          // showClose: true,
+          message: '请求成功！？',
+          type: 'success',
+        })
         break;
       default:
         ElMessage.error('网络请求错误');
@@ -55,22 +58,14 @@ axios.interceptors.response.use(
   }
 )
 
-// 请求数据类型
-interface AxiosInstance {
-  get<T = any>(url: string, config?: AxiosRequestConfig): Promise<T>;
-  delete<T = any>(url: string, config?: AxiosRequestConfig): Promise<T>;
-  post<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T>;
-  put<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T>;
-}
-
+// 定义接口，限制请求&响应数据类型
 interface ResType<T> {
-  code: number
-  data?: T
+  code: number | string
   msg: string
-  err?: string
+  data?: T
 }
 interface Http {
-  get<T>(url: string, config?: { password: string; username: string }): Promise<ResType<T>>
+  get<T>(url: string, config?: AxiosRequestConfig): Promise<ResType<T>>
   delete<T>(url: string, config?: AxiosRequestConfig): Promise<ResType<T>>
   post<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ResType<T>>
   put<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<ResType<T>>
@@ -78,63 +73,51 @@ interface Http {
 
 const http: Http = {
   // 可以将params写入config
-  get<T>(url:string, params:any) {
+  get<T>(url:string, params:T) {
     return new Promise((resolve, reject) => {
-      // NProgress.start()
       axios
         .get(url, { params })
         .then((res) => {
-          // NProgress.done()
           resolve(res.data)
         })
         .catch(err => {
-          // NProgress.done()
-          reject(err.data)
+          reject(err)
         })
     })
   },
-  delete(url:string, params:any) {
+  delete<T>(url:string, params:any) {
     return new Promise((resolve, reject) => {
-      // NProgress.start()
       axios
         .delete(url, { params })
         .then((res) => {
-          // NProgress.done()
           resolve(res.data)
         })
         .catch(err => {
-          // NProgress.done()
-          reject(err.data)
+          reject(err)
         })
     })
   },
-  post(url:string, data:any, config?:AxiosRequestConfig) {
+  post<T>(url:string, data:any, config?:AxiosRequestConfig) {
     return new Promise((resolve, reject) => {
-      // NProgress.start()
       axios
         .post(url, data, config)
         .then((res) => {
-          // NProgress.done()
           resolve(res.data)
         })
         .catch(err => {
-          // NProgress.done()
-          reject(err.data)
+          reject(err)
         })
     })
   },
-  put(url:string, data:any, config?:AxiosRequestConfig) {
+  put<T>(url:string, data:any, config?:AxiosRequestConfig) {
     return new Promise((resolve, reject) => {
-      // NProgress.start()
       axios
         .put(url, data,config)
         .then((res) => {
-          // NProgress.done()
           resolve(res.data)
         })
         .catch(err => {
-          // NProgress.done()
-          reject(err.data)
+          reject(err)
         })
     })
   },

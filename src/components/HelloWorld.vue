@@ -1,11 +1,14 @@
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue';
 import login from '@/apis/login';
-login({ username:'ls', password:'456' }).then(res=>{
-  sessionStorage.setItem('Authorization', res.data?.result.accessToken)
-  console.log('res==>', res);
-  return res;
-})
+
+const clickLogin = () => {
+  // ElMessage.error('请求出错!');
+  login({ username:'ls', password:'456' }).then(res=>{
+    // sessionStorage.setItem('Authorization', res.data.result.accessToken)
+    console.log('res==>', res);
+    return res;
+  })
+}
 
 const value1 = ref('')
 
@@ -16,7 +19,7 @@ const value1 = ref('')
     <el-row class="mb-4">
       <el-button round>Round</el-button>
       <el-button type="primary" round>Primary</el-button>
-      <el-button type="success" round>Success</el-button>
+      <el-button type="success" round @click="clickLogin">Success</el-button>
     </el-row>
     <div class="block">
       <span class="demonstration">Default</span>

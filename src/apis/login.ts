@@ -1,16 +1,11 @@
 import http from '@/utils/http/axios/index';
 
 interface loginReaType {
-  msg: string
-  code: string
-  data:{
-    result:{
-      accessToken:string
-      username: string
-      realName: string
-    }
+  result:{
+    accessToken: string
+    username: string
+    realName: string
   }
-  result:any
 }
 
 export default (params:any) => {

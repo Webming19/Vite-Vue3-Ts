@@ -22,20 +22,14 @@ const locale = zhCn;
 
 <style scoped lang="scss">
 #app{
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
+  /*-webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
-}
-section{
-  width: 200px;
-  height: 200px;
-  background: yellowgreen;
+  margin-top: 60px;*/
 }
 // nprogress样式配置
-#nprogress .bar {
+/*#nprogress .bar {
   background: #35495E !important; //自定义颜色
-}
+}*/
 </style>
