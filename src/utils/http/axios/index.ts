@@ -29,24 +29,19 @@ axios.interceptors.response.use(
     // 判断返回的状态
     switch (response.status) {
       case 200:
-        ElMessage({
-          // showClose: true,
-          message: '请求成功！？',
-          type: 'success',
-        })
         break;
       default:
-        ElMessage.error('网络请求错误');
+        ElMessage.error('网络请求错误！');
     }
     return response;
   },
   ( error: any ) => {
-    ElMessage.error('请求失败, 请稍后再试');
+    ElMessage.error('请求失败, 请稍后再试！');
     // 统一处理请求error
     switch (error.response.status) {
       case 401:
         // 返回 401 清除token信息并跳转到登录页面
-        ElMessage.error('登录信息过期 请登录');
+        ElMessage.error('登录信息过期 请登录！');
         sessionStorage.removeItem('Authorization');
         // 路由跳转到登录
         // this.$route.push('/login');

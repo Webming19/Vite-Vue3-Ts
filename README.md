@@ -98,18 +98,6 @@ export default () => {
 ```
 
 
-#### 2.2.4 [@types/nprogress](https://www.npmjs.com/package/@types/nprogress)
-页面顶部加载条插件
-
-颜色配置：
-```scss
-// nprogress样式配置
-#nprogress .bar {
-  background: #35495E !important; //自定义颜色
-}
-```
-
-
 #### 2.2.4 [unplugin-auto-import](https://github.com/antfu/unplugin-auto-import#readme)
 自动导入函数插件
 
@@ -134,8 +122,6 @@ export default defineConfig({
   ],
 })
 ```
-
-
 
 
 
@@ -608,6 +594,40 @@ interface ResType<T> {
 vite 使用 mock 数据非常简单，使用 vite-plugin-mock 插件，mock数据。
 
 
+## 12.路由
+路由和菜单是组织起一个应用的关键骨架。
+
+
+###12.1 创建路由
+
++ 使用 **createRouter** 创建路由，这时候根据需求选择 Hash 路由或者 History 路由。
+一般选用Hash模式
++ 根据业务需求配置路由，常用路由包括Home/Login/404
++ 如果有权限相关的业务，你需要创建 permission.ts 在路由钩子触发时做一些事情
+
+>页面比较多时，需要创建 routes 目录，分模块声明路由。
+
+
+###12.2 使用 meta 丰富你的路由（缺失）
+vue-router4 支持 typescript，配置路由的类型是 RouteRecordRaw，
+这里 meta 可以让我们有更多的发挥空间
+
+一些参考：
++ title: string; 页面标题，通常必选。
++ icon?: string; 图标，一般配合菜单使用。
++ auth?: boolean; 是否需要登录权限。
++ ignoreAuth?: boolean; 是否忽略权限。
++ roles?: RoleEnum[]; 可以访问的角色
++ keepAlive?: boolean; 是否开启页面缓存
++ hideMenu?: boolean; 有些路由我们并不想在菜单中显示，比如某些编辑页面。
++ order?: number; 菜单排序。
++ frameUrl?: string; 嵌套外链。
+
+
+
+## 13.项目性能与细节优化
+### 13.1 开启 gzip
+项目暂时不开启压缩
 
 
 

@@ -2,9 +2,8 @@
 import login from '@/apis/login';
 
 const clickLogin = () => {
-  // ElMessage.error('请求出错!');
   login({ username:'ls', password:'456' }).then(res=>{
-    // sessionStorage.setItem('Authorization', res.data.result.accessToken)
+    res.data && sessionStorage.setItem('Authorization', res.data.result.accessToken)
     console.log('res==>', res);
     return res;
   })

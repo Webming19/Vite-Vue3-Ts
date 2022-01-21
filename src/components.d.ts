@@ -4,10 +4,7 @@
 
 declare module 'vue' {
   export interface GlobalComponents {
-    ElButton: typeof import('element-plus/es')['ElButton']
     ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
-    ElDatePicker: typeof import('element-plus/es')['ElDatePicker']
-    ElRow: typeof import('element-plus/es')['ElRow']
     HelloWorld: typeof import('./components/HelloWorld.vue')['default']
     SvgIcon: typeof import('./components/svg/SvgIcon.vue')['default']
   }
