@@ -1,12 +1,11 @@
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <div>Home</div>
 </template>
 
 <style scoped lang="scss">
-div{
+div {
   width: 300px;
   height: 300px;
   background: #20da55;

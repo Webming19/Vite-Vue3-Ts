@@ -5,7 +5,7 @@
   官方文档：https://v3.cn.vuejs.org/api/sfc-script-setup.html
 */
 // Element-Plus国际化
-import zhCn from 'element-plus/lib/locale/lang/zh-cn';
+import zhCn from "element-plus/lib/locale/lang/zh-cn";
 const locale = zhCn;
 </script>
 
@@ -22,7 +22,7 @@ const locale = zhCn;
 </template>
 
 <style scoped lang="scss">
-#app{
+#app {
   /*-webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -31,6 +31,6 @@ const locale = zhCn;
 }
 // nprogress样式配置
 #nprogress .bar {
-  background: #35495E !important; //自定义颜色
+  background: #35495e !important; //自定义颜色
 }
 </style>

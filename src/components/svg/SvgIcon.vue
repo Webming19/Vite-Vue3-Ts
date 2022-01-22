@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, withDefaults } from 'vue';
+import { computed, withDefaults } from "vue";
 
 // 限制类型
 interface Props {
@@ -10,9 +10,9 @@ interface Props {
 
 // 设置默认值
 const props = withDefaults(defineProps<Props>(), {
-  prefix: 'icon',
-  name: '',
-  color: '#000000',
+  prefix: "icon",
+  name: "",
+  color: "#000000",
 });
 
 const symbolId = computed(() => `#${props.prefix}-${props.name}`);

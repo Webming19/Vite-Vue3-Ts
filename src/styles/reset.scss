@@ -1,29 +1,57 @@
 @charset "utf-8";
 /* CSS Document */
-html,body{
+html,
+body {
   width: 100%;
   height: 100%;
 }
 /* 触摸设置-设置触摸屏用户如何操纵元素的区域 */
-html{
-  touch-action: none!important;
+html {
+  touch-action: none !important;
 }
-* { touch-action: pan-y!important; }
+* {
+  touch-action: pan-y !important;
+}
 /* 重置margin和padding */
-body,h1,h3,h2,h4,h5,h6,p,dl,dd,ul,li,ol,td,form,input,fieldset,legend,figure{
-  margin:0; padding:0;
+body,
+h1,
+h3,
+h2,
+h4,
+h5,
+h6,
+p,
+dl,
+dd,
+ul,
+li,
+ol,
+td,
+form,
+input,
+fieldset,
+legend,
+figure {
+  margin: 0;
+  padding: 0;
 }
 
-li{list-style:none;}
+li {
+  list-style: none;
+}
 
-a{text-decoration:none; font-size:20px; color:#333;}
+a {
+  text-decoration: none;
+  font-size: 20px;
+  color: #333;
+}
 
-body{
+body {
   font-size: 20px;
   font-family: "Microsoft YaHei", sans-serif;
   color: #000000;
   //background-image: url("../../static/images/bg3.png");
-  background-color: #ECF0F3;
+  background-color: #ecf0f3;
   background-size: cover;
   background-position: top left;
   background-repeat: no-repeat;
@@ -34,19 +62,45 @@ body{
   box-sizing: border-box;
 }
 
-img{display:block; border:none;}
+img {
+  display: block;
+  border: none;
+}
 
-a,input{outline:none;}
+a,
+input {
+  outline: none;
+}
 
-em,i{font-style:normal;}
+em,
+i {
+  font-style: normal;
+}
 
-b,strong,h1,h2,h3,h4,h5,h6{font-weight:normal;}
+b,
+strong,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: normal;
+}
 
 /* 清除 */
-.clear:after{content:""; display:block; clear:both; height:0; visibility:hidden;}
+.clear:after {
+  content: "";
+  display: block;
+  clear: both;
+  height: 0;
+  visibility: hidden;
+}
 
 /* 去除边框 */
-.border0{border:none;}
+.border0 {
+  border: none;
+}
 
 /* 谷歌的滚动条样式 */
 ::-webkit-scrollbar {
@@ -58,10 +112,9 @@ b,strong,h1,h2,h3,h4,h5,h6{font-weight:normal;}
 
 /*定义滚动条的轨道颜色、内阴影及圆角*/
 ::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   background-color: rosybrown;
   border-radius: 3px;
-
 }
 
 ::-webkit-scrollbar-track-piece {
