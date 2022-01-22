@@ -1,16 +1,15 @@
 <script lang="ts" setup>
-import login from '@/apis/login';
+import login from "@/apis/login";
 
 const clickLogin = () => {
-  login({ username:'ls', password:'456' }).then(res=>{
+  login({ username: "ls", password: "456" }).then((res) => {
     // res.data && sessionStorage.setItem('Authorization', res.data.result.accessToken)
-    console.log('res==>', res);
+    console.log("res==>", res);
     return res;
-  })
-}
+  });
+};
 
-const value1 = ref('')
-
+const value1 = ref("xx");
 </script>
 
 <template>
