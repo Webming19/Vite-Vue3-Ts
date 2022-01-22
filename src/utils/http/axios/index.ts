@@ -1,5 +1,8 @@
 import axios, { AxiosRequestConfig, AxiosResponse, Method } from 'axios';
 
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
+
 // 全局变量
 // console.log('环境变量env==>', import.meta.env)
 const env = import.meta.env
@@ -70,48 +73,60 @@ const http: Http = {
   // 可以将params写入config
   get<T>(url:string, params:T) {
     return new Promise((resolve, reject) => {
+      NProgress.start();
       axios
         .get(url, { params })
         .then((res) => {
+          NProgress.done()
           resolve(res.data)
         })
         .catch(err => {
+          NProgress.done()
           reject(err)
         })
     })
   },
   delete<T>(url:string, params:any) {
     return new Promise((resolve, reject) => {
+      NProgress.start();
       axios
         .delete(url, { params })
         .then((res) => {
+          NProgress.done()
           resolve(res.data)
         })
         .catch(err => {
+          NProgress.done()
           reject(err)
         })
     })
   },
   post<T>(url:string, data:any, config?:AxiosRequestConfig) {
     return new Promise((resolve, reject) => {
+      NProgress.start();
       axios
         .post(url, data, config)
         .then((res) => {
+          NProgress.done()
           resolve(res.data)
         })
         .catch(err => {
+          NProgress.done()
           reject(err)
         })
     })
   },
   put<T>(url:string, data:any, config?:AxiosRequestConfig) {
     return new Promise((resolve, reject) => {
+      NProgress.start();
       axios
         .put(url, data,config)
         .then((res) => {
+          NProgress.done()
           resolve(res.data)
         })
         .catch(err => {
+          NProgress.done()
           reject(err)
         })
     })

@@ -3,6 +3,7 @@
 
 <template>
   <div>登陆页面</div>
+  <HelloWorld/>
 </template>
 
 <style scoped lang="scss">

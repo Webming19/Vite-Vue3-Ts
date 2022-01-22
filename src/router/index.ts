@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
-import Home from '@/views/Home.vue'
+import Home from '@/views/Home.vue';
 
 const routes:Array<RouteRecordRaw> = [
   {
@@ -37,8 +37,11 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  console.log('全局前置路由守卫==>')
+  // console.log('全局前置路由守卫==>')
   next();
 })
+
+router.afterEach((to) => {
+});
 
 export default router;

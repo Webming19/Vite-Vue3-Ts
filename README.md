@@ -630,6 +630,59 @@ vue-router4 支持 typescript，配置路由的类型是 RouteRecordRaw，
 项目暂时不开启压缩
 
 
+### 13.2 页面载入进度条
+页面路由切换/数据请求时，附带一个加载进度条会显得非常友好，
+不至于白屏时间过长，让用户以为页面假死。
+
+这时候我们可以用到 nprogress，在路由切换时开启和关闭：
+安装：
+```text
+pnpm add nprogress
+pnpn add @types/nprogress
+```
+```ts
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
+
+router.beforeEach(async (to, from, next) => {
+  // 进度条开始
+  NProgress.start();
+});
+
+router.afterEach((to) => {
+  // 进度条结束
+  NProgress.done();
+});
+```
+
+### 13.3 Title
+在不同的路由下显示不同的标题是常规的操作，我们可以通过路由钩子获取 meta 中的 title 属性改变标签页上的 title。
+你可以使用 vueuse 提供的 useTitle，或者 window.document.title 自行封装。
+你也可以通过环境变量将你的主标题拼接在路由标题的后面：
+```ts
+const { VITE_APP_TITLE } = import.meta.env;
+```
+
+
+### 13.4 常用的 JavaScript 库
+[vueuse](https://vueuse.org)，vue的库，非常强大
+[lodash](https://www.lodashjs.com)，js的函数库
+
+
+
+
+
+
+
+
+## 14.代码风格与流程规范
+### 14.1 ESLint
+不管是多人合作还是个人项目，代码规范都是很重要的。
+这样做不仅可以很大程度地避免基本语法错误，也保证了代码的可读性。
+
+这里推荐使用 airbnb 规范。
+
+
 
 
 
