@@ -9,9 +9,9 @@
     "build:perceive-west": "vue-tsc --noEmit && vite build --mode prod_percive_west",
     "build:police-east": "vue-tsc --noEmit && vite build --mode prod_police_east",
     "build:police-west": "vue-tsc --noEmit && vite build --mode prod_police_west",
+    "preview": "vite preview",
     "lint": "eslint src --fix --ext .ts,.tsx,.vue,.js,.jsx",
     "prettier": "prettier --write .",
-    "preview": "vite preview",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -47,12 +47,16 @@
     "vite-plugin-svg-icons": "^1.1.0",
     "vue-tsc": "^0.29.8"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "lint-staged": {
-    "*.{js,jsx,vue}": [
-      "prettier --write ./src",
-      "eslint --ext .vue,.js,.jsx --fix ./src",
-      "git add"
-    ],
-    "*.{ts,tsx,vue,js,jsx}": "eslint --cache --fix"
+    "src/**/*.{js,jsx,vue,ts,tsx}": [
+      "yarn lint",
+      "yarn prettier",
+      "git add ."
+    ]
   }
 }

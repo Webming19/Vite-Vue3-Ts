@@ -93,32 +93,32 @@ module.exports = {
     camelcase: "warn",
     // 强制使用一致的缩进
     indent: "off",
-    // 强制在 JSX 属性中一致地使用双引号或单引号
-    // 'jsx-quotes': 'warn',
+    /*// 强制在 JSX 属性中一致地使用双引号或单引号
+    'jsx-quotes': 'warn',
     // 强制可嵌套的块的最大深度4
     "max-depth": "warn",
     // 强制最大行数 300
-    // "max-lines": ["warn", { "max": 1200 }],
+    "max-lines": ["warn", { "max": 1200 }],
     // 强制函数最大代码行数 50
-    // 'max-lines-per-function': ['warn', { max: 70 }],
+    'max-lines-per-function': ['warn', { max: 70 }],
     // 强制函数块最多允许的的语句数量20
     "max-statements": ["warn", 100],
     // 强制回调函数最大嵌套深度
     "max-nested-callbacks": ["warn", 3],
     // 强制函数定义中最多允许的参数数量
-    // 'max-params': ['warn', 3],
+    'max-params': ['warn', 3],
     // 强制每一行中所允许的最大语句数量
     "max-statements-per-line": ["warn", { max: 1 }],
     // 要求方法链中每个调用都有一个换行符
-    "newline-per-chained-call": ["warn", { ignoreChainWithDepth: 3 }],
+    "newline-per-chained-call": ["warn", { ignoreChainWithDepth: 3 }],*/
     // 禁止 if 作为唯一的语句出现在 else 语句中
     "no-lonely-if": "warn",
     // 禁止空格和 tab 的混合缩进
     "no-mixed-spaces-and-tabs": "warn",
     // 禁止出现多行空行
     "no-multiple-empty-lines": "warn",
-    // 禁止出现;
-    semi: ["warn", "never"],
+    // 行尾分号设置
+    semi: "off",
     // 强制在块之前使用一致的空格
     "space-before-blocks": "warn",
     // 强制在 function的左括号之前使用一致的空格
