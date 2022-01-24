@@ -93,6 +93,7 @@ module.exports = {
     camelcase: "warn",
     // 强制使用一致的缩进
     indent: "off",
+    quotes: 1,
     /*// 强制在 JSX 属性中一致地使用双引号或单引号
     'jsx-quotes': 'warn',
     // 强制可嵌套的块的最大深度4
