@@ -11,7 +11,8 @@
     "build:police-west": "vue-tsc --noEmit && vite build --mode prod_police_west",
     "lint": "eslint src --fix --ext .ts,.tsx,.vue,.js,.jsx",
     "prettier": "prettier --write .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prepare": "husky install"
   },
   "dependencies": {
     "axios": "^0.24.0",
@@ -33,6 +34,7 @@
     "eslint-plugin-vue": "^8.3.0",
     "husky": "^7.0.4",
     "lint-staged": "^12.3.1",
+    "mrm": "^3.0.10",
     "postcss": "^8.4.5",
     "prettier": "^2.5.1",
     "sass": "^1.47.0",
@@ -45,16 +47,12 @@
     "vite-plugin-svg-icons": "^1.1.0",
     "vue-tsc": "^0.29.8"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
     "*.{js,jsx,vue}": [
       "prettier --write ./src",
       "eslint --ext .vue,.js,.jsx --fix ./src",
       "git add"
-    ]
+    ],
+    "*.{ts,tsx,vue,js,jsx}": "eslint --cache --fix"
   }
 }
