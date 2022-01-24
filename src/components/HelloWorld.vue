@@ -10,7 +10,7 @@ const clickLogin = () => {
   });
 };
 
-const value1 = ref("xxx");
+const value1 = ref("xx");
 </script>
 
 <template>
