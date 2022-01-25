@@ -120,7 +120,7 @@ module.exports = {
     // 行尾分号设置
     semi: 0,
     quotes: 1,
-    'no-defind': 0,
+    'no-undef': 0,
     // 强制在块之前使用一致的空格
     "space-before-blocks": "warn",
     // 强制在 function的左括号之前使用一致的空格
