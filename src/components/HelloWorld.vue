@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import login from "@/apis/login";
-import { ref } from "vue";
 
 const clickLogin = () => {
   login({ username: "ls", password: "456" }).then((res) => {
