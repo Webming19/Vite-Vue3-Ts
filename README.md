@@ -995,7 +995,7 @@ pnpm prettier
 css的书写顺序很重要，会影响浏览器的渲染。正确的书写可以减少浏览器的回流，提升浏览器的dom渲染。
 > https://juejin.cn/post/6995973631238995998
 
-> [浏览器执行css代码速度](https://www.cnblogs.com/liangpi/p/12365633.html)
+> [浏览器执行css代码顺序](https://www.cnblogs.com/liangpi/p/12365633.html)
 
 Stylelint与ESLint类似，都与Prettier规则有冲突，stylelint-config-prettier可以解决这些冲突
 
