@@ -9,7 +9,8 @@ const clickLogin = () => {
   });
 };
 
-const value1 = ref("xxx==>");
+const value1 = ref("");
+const vl2 = ref("y=x^2-1");
 </script>
 
 <template>
