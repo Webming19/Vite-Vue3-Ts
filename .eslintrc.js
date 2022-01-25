@@ -93,7 +93,6 @@ module.exports = {
     camelcase: "warn",
     // 强制使用一致的缩进
     indent: "off",
-    quotes: 1,
     /*// 强制在 JSX 属性中一致地使用双引号或单引号
     'jsx-quotes': 'warn',
     // 强制可嵌套的块的最大深度4
@@ -119,7 +118,9 @@ module.exports = {
     // 禁止出现多行空行
     "no-multiple-empty-lines": "warn",
     // 行尾分号设置
-    semi: "off",
+    semi: 0,
+    quotes: 1,
+    'no-defind': 0,
     // 强制在块之前使用一致的空格
     "space-before-blocks": "warn",
     // 强制在 function的左括号之前使用一致的空格

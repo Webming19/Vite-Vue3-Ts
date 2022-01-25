@@ -1,6 +1,7 @@
 {
   "name": "package",
   "version": "0.0.0",
+  "license": "ISC",
   "scripts": {
     "serve": "vite",
     "build": "vue-tsc --noEmit && vite build",
