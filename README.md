@@ -989,6 +989,44 @@ pnpm prettier
 
 在实际使用过程中，可能出现husky不执行情况/无明确报错，请执行eslint后查看报错。
 
+
+### 14.4 配置stylelint，规范样式代码
+
+css的书写顺序很重要，会影响浏览器的渲染。正确的书写可以减少浏览器的回流，提升浏览器的dom渲染。
+> https://juejin.cn/post/6995973631238995998
+
+> [浏览器执行css代码速度](https://www.cnblogs.com/liangpi/p/12365633.html)
+
+Stylelint与ESLint类似，都与Prettier规则有冲突，stylelint-config-prettier可以解决这些冲突
+
+相关依赖
+```dotenv
+stylelint@13.13.1
+stylelint-config-standard@22.0.0
+stylelint-config-prettier@8.0.2
+stylelint-config-recess-order@2.5.0
+stylelint-scss@4.1.0
+```
+
+配置`stylelint.config.js`和`.stylelintignore`后，
+
+在`package.json`的script中增加：
+```json
+{
+  "style": "stylelint --fix **/*.{vue,css,scss}",
+}
+```
+在`lint-staged`中增加`"yarn style"`，在代码提交前规范代码
+
+
+
+
+
+
+
+
+
+
 ## n.xxx
 
 src 文件内容
