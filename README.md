@@ -987,6 +987,8 @@ pnpm prettier
 
 项目中使用 husky 监听代码提交，对提交的代码执行 eslint&prettier，规范代码格式
 
+在实际使用过程中，可能出现husky不执行情况/无明确报错，请执行eslint后查看报错。
+
 ## n.xxx
 
 src 文件内容

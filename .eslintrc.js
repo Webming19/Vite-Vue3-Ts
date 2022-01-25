@@ -119,7 +119,9 @@ module.exports = {
     "no-multiple-empty-lines": "warn",
     // 行尾分号设置
     semi: 0,
+    // 单引号
     quotes: 1,
+    // 未定义变量设置
     "no-undef": 0,
     // 强制在块之前使用一致的空格
     "space-before-blocks": "warn",
