@@ -31,6 +31,7 @@ const locale = zhCn;
 }
 // nprogress样式配置
 #nprogress .bar {
-  background: #35495e !important; //自定义颜色
+  //自定义颜色
+  background: #35495e !important;
 }
 </style>

@@ -985,6 +985,8 @@ pnpm prettier
 > 安装推荐使用 mrm, 它将根据 package.json
 > 依赖项中的代码质量工具来安装和配置 husky 和 lint-staged
 
+项目中使用 husky 监听代码提交，对提交的代码执行 eslint&prettier，规范代码格式
+
 ## n.xxx
 
 src 文件内容
