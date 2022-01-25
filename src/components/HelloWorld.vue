@@ -25,5 +25,15 @@ const vl2 = ref("y=x^2-1");
       <el-date-picker v-model="value1" type="date" placeholder="Pick a day">
       </el-date-picker>
     </div>
+    <div class="box">111</div>
   </div>
 </template>
+
+<style scoped lang="scss">
+.box {
+  display: flex;
+  width: 200px;
+  height: 200px;
+  background: #6876aa;
+}
+</style>

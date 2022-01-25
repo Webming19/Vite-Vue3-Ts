@@ -13,14 +13,15 @@
 .nf-box {
   h1 {
     height: 100%;
-    text-align: center;
     padding-top: 200px;
     font-size: 36px;
     font-weight: bold;
-  }
-  h2 {
     text-align: center;
+  }
+
+  h2 {
     font-weight: bold;
+    text-align: center;
   }
 }
 </style>

@@ -1,17 +1,17 @@
 @charset "utf-8";
+
 /* CSS Document */
 html,
 body {
   width: 100%;
   height: 100%;
 }
+
 /* 触摸设置-设置触摸屏用户如何操纵元素的区域 */
 html {
   touch-action: none !important;
 }
-* {
-  touch-action: pan-y !important;
-}
+
 /* 重置margin和padding */
 body,
 h1,
@@ -32,8 +32,8 @@ input,
 fieldset,
 legend,
 figure {
-  margin: 0;
   padding: 0;
+  margin: 0;
 }
 
 li {
@@ -41,24 +41,26 @@ li {
 }
 
 a {
-  text-decoration: none;
   font-size: 20px;
   color: #333;
+  text-decoration: none;
 }
 
 body {
-  font-size: 20px;
+  overflow-x: hidden;
   font-family: "Microsoft YaHei", sans-serif;
-  color: #000000;
+  font-size: 20px;
+  color: #000;
   //background-image: url("../../static/images/bg3.png");
   background-color: #ecf0f3;
-  background-size: cover;
   background-position: top left;
   background-repeat: no-repeat;
-  overflow-x: hidden;
+  background-size: cover;
 }
+
 /* 使用怪异盒模型 */
 * {
+  touch-action: pan-y !important;
   box-sizing: border-box;
 }
 
@@ -89,11 +91,11 @@ h6 {
 }
 
 /* 清除 */
-.clear:after {
-  content: "";
+.clear::after {
   display: block;
-  clear: both;
   height: 0;
+  clear: both;
+  content: "";
   visibility: hidden;
 }
 
@@ -104,41 +106,42 @@ h6 {
 
 /* 谷歌的滚动条样式 */
 ::-webkit-scrollbar {
-  /*对垂直流动条有效*/
+  /* 对垂直流动条有效 */
   width: 8px;
-  /*对水平流动条有效*/
+
+  /* 对水平流动条有效 */
   height: 6px;
 }
 
-/*定义滚动条的轨道颜色、内阴影及圆角*/
+/* 定义滚动条的轨道颜色、内阴影及圆角 */
 ::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   background-color: rosybrown;
   border-radius: 3px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
 
 ::-webkit-scrollbar-track-piece {
-  background-color: rgb(244, 244, 244);
   margin: 0;
+  background-color: rgb(244, 244, 244);
 }
 
-/*定义滑块颜色、内阴影及圆角*/
+/* 定义滑块颜色、内阴影及圆角 */
 ::-webkit-scrollbar-thumb {
-  min-height: 150px;
   min-width: 150px;
+  min-height: 150px;
   background-color: #797979;
   border-radius: 10px;
   //-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
   //margin: 0 auto;
 }
 
-/*定义两端按钮的样式*/
+/* 定义两端按钮的样式 */
 ::-webkit-scrollbar-button {
-  background-color: cyan;
   display: none;
+  background-color: cyan;
 }
 
-/*定义右下角汇合处的样式*/
+/* 定义右下角汇合处的样式 */
 ::-webkit-scrollbar-corner {
   background: khaki;
 }
