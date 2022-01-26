@@ -52,18 +52,16 @@ yarn build:police-west
 
 Element 支持 Vue3 的版本，由于 element-plus 是 beta 版本，所以不强制使用，后续做更改；
 
-当然，也可以使用[ant-design-vue](https://next.antdv.com/docs/vue/migration-v3-cn)的 v2/v3(beta)版本，但是不建议使用 v2，因为它不支持 vue3 的新特性
+当然，也可以使用[ant-design-vue](https://next.antdv.com/docs/vue/migration-v3-cn )的 v2/v3(beta)版本，但是不建议使用 v2，因为它不支持 vue3 的新特性
 
-或者[Tdesign-next](https://tdesign.tencent.com/vue-next/components/overview)，但 Tdesgin 还在 alpha 版本，可以了解，不建议使用
+或者[Tdesign-next](https://tdesign.tencent.com/vue-next/components/overview )，但 Tdesgin 还在 alpha 版本，可以了解，不建议使用
 
 #### 2.2.2 [vite-plugin-svg-icons](https://github.com/vbenjs/vite-plugin-svg-icons/blob/HEAD/README.zh_CN.md)
 
 生成 svg 雪碧图。
 
 - 配置：
-
-step1： vite.config.ts
-
+step1： `vite.config.ts`
 ```ts
 import viteSvgIcons from "vite-plugin-svg-icons";
 import path from "path";
@@ -81,9 +79,7 @@ export default () => {
   };
 };
 ```
-
-step2： 在 src/main.ts 内引入注册脚本
-
+step2： 在 `src/main.ts` 内引入注册脚本
 ```ts
 import "virtual:svg-icons-register";
 ```
@@ -93,7 +89,6 @@ import "virtual:svg-icons-register";
 使用 gzip 或者 brotli 来压缩资源
 
 - vite.config.ts 中的配置插件
-
 ```ts
 import viteCompression from "vite-plugin-compression";
 
@@ -109,7 +104,6 @@ export default () => {
 自动导入函数插件
 
 - 配置：
-
 ```ts
 // 自动导入函数插件
 import AutoImport from "unplugin-auto-import/vite";
@@ -131,9 +125,9 @@ export default defineConfig({
 });
 ```
 
+
 ##3.使用 Typescript
 Vite 天然支持引入`.ts`文件。
-
 ```json
 {
   "compilerOptions": {
@@ -268,7 +262,7 @@ export default defineConfig({
 
 配置完成后，即可在组件中直接使用 element-plus 组件，无需引入
 
-##6.样式
+## 6.样式
 
 项目建议使用通用样式，可以创建 src/styles 目录存放
 
@@ -284,26 +278,25 @@ styles
   └── variable.scss # 变量
 ```
 
-###6.1 预设基础样式
+### 6.1 预设基础样式
 
 `normalize.css`是一个基础的样式库，它可以重置 css 样式，使各浏览器效果保持一致。
 
-###6.2 CSS 预处理器
+### 6.2 CSS 预处理器
 虽然 vite 原生支持 less/sass/scss/stylus，但是你必须手动安装他们的预处理器依赖;
 
 本项目使用**scss**：`npm install -D scss`
 
-###6.3 开启 scoped
+### 6.3 开启 scoped
 没有加 scoped 属性，会编译成全局样式，造成全局污染。
-
 ```vue
 <style scoped></style>
 ```
 
-###6.4 深度选择器
+### 6.4 深度选择器
 如果你希望 scoped 样式中的一个选择器能够穿透时，请使用`::v-deep`。（禁止使用`/deep/`）
 
-##7.布局
+## 7.布局
 
 页面整体布局是一个产品最外层的框架结构，往往会包含导航、页脚、侧边栏等。在页面之中，也有很多区块的布局结构。
 
@@ -311,19 +304,19 @@ styles
 
 在脚手架中，所有的通用布局组件都应该放在 src/layouts 中，这种封装比较简单。
 
-###7.1 常规的布局
+### 7.1 常规的布局
 BasicLayout
 基础页面布局，应包含顶部、底部两栏
 
 BlankLayout
 空白的布局。
 
-###7.2 特殊的布局
+### 7.2 特殊的布局
 
 UserLayout
 将用户登录注册等页面抽离出来。
 
-##8.集成 Tailwind.css
+## 8.集成 Tailwind.css
 
 项目采用`reset.scss`重置样式，该文件由老项目的`reset.scss`
 
@@ -337,7 +330,7 @@ UserLayout
 使用`tailwind.CSS`后，预处理器的作用就会显得微乎其微，
 因为无需再自定定义各种变量和 mixins。
 
-###8.1 效率提升
+### 8.1 效率提升
 
 关于样式要与结构分离的话题，tailwind 显然是一个与 HTML 紧密结合的工具；
 但因为现在使用 vue 框架，结果是高度组件化，样式分离是为了方便复用和维护，但在组件化面前样式分离只能是降低开发效率。
@@ -349,14 +342,13 @@ tailwind 提升效率的方面：
 - 悬停、焦点和其它状态
 - 深色模式
 
-###8.2 JIT 模式
+### 8.2 JIT 模式
 
 当前环境支持 postcss8（vue/cli 构建的 vue2 项目是 postcss7）
 
 如果你的环境支持 postcss8（ vue/cli 构建的 vue2 项目是 postcss7 ），那么 JIT 模式直接带你起飞。
 
 它的优势：
-
 - 超快的构建速度
 - 支持变体，你甚至可以这么写 sm:hover:active:disabled:opacity-75
 - 支持任意样式，例如 md:top-[-113px]
@@ -366,7 +358,7 @@ tailwind 提升效率的方面：
 [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
 插件，它可以自动补全类名，显著降低学习成本
 
-###8.3 打包体积
+### 8.3 打包体积
 使用默认配置，未压缩是 3739.4kB，
 Gzip 压缩 是 293.9kB，Brotli 压缩 是 73.2kB。
 这样会使项目包过大（虽然我们不在乎包的大小），
@@ -444,7 +436,6 @@ Pinia 与 Vuex 的区别：
 - 创建 store
 
 创建好后，在 state 中新增属性：
-
 ```ts
 state: () => ({
   name: "ming",
@@ -457,8 +448,7 @@ state: () => ({
 
 - 在模板中使用 store：
 
-可以从 store 中获取到 age 的状态，并修改状态：
-
+可以从 store 中获取到 age 的状态：
 ```vue
 <script setup lang="ts">
 // 引入userStore仓库
@@ -467,18 +457,22 @@ const userStore = useUserStore();
 </script>
 
 <template>
-  <div @click="userStore.age++">{{ userStore.age }}</div>
+  <div>{{ userStore.age }}</div>
 </template>
 ```
-
 注意这里并**不需要**这样写`userStore.state.age`；
 
-虽然上面的写法很舒适，但是不可以用解构的方式去提取它内部的值，这样的话，会失去它的响应式：
-
+state 也可以使用解构，但使用解构会使其失去响应式，这时候可以用 pinia 的 storeToRefs：
 ```ts
 // 这种写法会失去响应式
 let { name, age } = useUserStore();
+// 使用storeToRefs结构，类似vue3的toRefs
+import { storeToRefs } from 'pinia';
+let { name1 } = storeToRefs(userStore);
 ```
+
+可以直接以赋值的形式修改state，但是禁止这样做，请在action中改变state。
+
 
 ### 9.4 Getters
 
@@ -487,7 +481,6 @@ Pinia 中的 getter 与 Vuex 中的 getter 、组件中的计算属性具有相�
 但箭头函数还是要使用函数的第一个参数来获取 state
 
 - 创建
-
 ```ts
 {
   getters: {
@@ -504,7 +497,6 @@ Pinia 中的 getter 与 Vuex 中的 getter 、组件中的计算属性具有相�
 ```
 
 - 使用
-
 ```ts
 {
   {
@@ -522,7 +514,7 @@ Pinia 中的 getter 与 Vuex 中的 getter 、组件中的计算属性具有相�
 
 Pinia 让 Actions 使用起来更加的灵活：
 
-- 可以通过组件或其他 action 调用
+- 可以通过组件或其他 action 调用（即action之间可以互相调用）
 - 可以从其他 store 的 action 中调用
 - 直接在商店实例上调用
 - 支持**同步**或**异步**
@@ -533,18 +525,19 @@ Pinia 让 Actions 使用起来更加的灵活：
 #### ② 使用：
 
 store 中设置 actions：
-
 ```ts
-actions: {
-  async getData(page){
-    await requsetData(page);
-    this.name = 'xxx';
+export const useUserStore = defineStore({
+  id: 'user',
+  actions: {
+    async login(account, pwd) {
+      const { data } = await api.login(account, pwd)
+      return data
+    }
   }
-}
+})
 ```
 
 组件中使用：
-
 ```vue
 <script lang="ts" setup>
 import { definedStore } from "@/store";
@@ -553,6 +546,59 @@ const defStore = definedStore();
 
 defStore.getData(2);
 </script>
+```
+
+### 9.6 数据持久化
+插件 `pinia-plugin-persist` 可以辅助实现数据持久化功能。
+
++ 在对应的 `store` 里开启 `persist`
+```ts
+import { defineStore } from 'pinia'
+
+export const useStore = defineStore('main', {
+  state: () => {
+    return {
+      someState: 'hello pinia',
+    }
+  },
+  persist: true
+})
+```
+
++ 配置数据的持久化方式，`persist`可以采用以下选项：
+  - `key: string` : 自定义 key 值，在存储中使用的key（默认为当前存储 ID）。
+  - `storage`: 储存方式。（默认为`localStorage`）。
+  - `paths: Array<string>`：可以通过 paths 指定要持久化的字段，其他的则不会进行持久化。，`[]`意味着没有持久化状态（默认为`undefined`并持久化整个状态）。
+  - `overwrite: boolean`：是否要覆盖初始状态（默认为`false`）
+  - `beforeRestore: (context) => void`: 在从本地存储恢复状态前_执行的钩子函数（如果设置） 。
+  - `afterRestore: (context) => void`：从本地存储恢复状态后_执行的钩子函数（如果设置） 。
+
+```ts
+export const useUserStore = defineStore({
+  id: 'user',
+
+  state: () => {
+    return {
+      name: '张三',
+      age: 18,
+      height: 175,
+    }
+  },
+  
+  // 开启数据缓存
+  persist: {
+    key: 'my-user',
+    storage: window.sessionStorage,
+    paths: ['name','age'],
+    overwrite: true,
+    beforeRestore: (context) => {
+      console.log('Before hydration...')
+    },
+    afterRestore: (context) => {
+      console.log('After hydration...')
+    },
+  },
+})
 ```
 
 ## 10.基于 mitt 处理组件间事件联动
@@ -764,7 +810,7 @@ module.exports = {
       jsx: true,
     },
   },
-  // eslint-plugin-vue @typescript-eslint/eslint-plugin eslint-plugin-prettier缩写
+  // eslint-plugin-vue @typescript-eslint/eslint-plugin eslint-plugin-prettier的缩写
   plugins: ["vue", "@typescript-eslint", "prettier"],
   rules: {
     "@typescript-eslint/ban-ts-ignore": "off",
@@ -778,7 +824,6 @@ module.exports = {
     "@typescript-eslint/ban-types": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
-    "no-var": "error",
     "prettier/prettier": "error",
     // 禁止出现console
     "no-console": "warn",
@@ -836,32 +881,36 @@ module.exports = {
     camelcase: "warn",
     // 强制使用一致的缩进
     indent: "off",
-    // 强制在 JSX 属性中一致地使用双引号或单引号
-    // 'jsx-quotes': 'warn',
+    /*// 强制在 JSX 属性中一致地使用双引号或单引号
+    'jsx-quotes': 'warn',
     // 强制可嵌套的块的最大深度4
     "max-depth": "warn",
     // 强制最大行数 300
-    // "max-lines": ["warn", { "max": 1200 }],
+    "max-lines": ["warn", { "max": 1200 }],
     // 强制函数最大代码行数 50
-    // 'max-lines-per-function': ['warn', { max: 70 }],
+    'max-lines-per-function': ['warn', { max: 70 }],
     // 强制函数块最多允许的的语句数量20
     "max-statements": ["warn", 100],
     // 强制回调函数最大嵌套深度
     "max-nested-callbacks": ["warn", 3],
     // 强制函数定义中最多允许的参数数量
-    "max-params": ["warn", 3],
+    'max-params': ['warn', 3],
     // 强制每一行中所允许的最大语句数量
     "max-statements-per-line": ["warn", { max: 1 }],
     // 要求方法链中每个调用都有一个换行符
-    "newline-per-chained-call": ["warn", { ignoreChainWithDepth: 3 }],
+    "newline-per-chained-call": ["warn", { ignoreChainWithDepth: 3 }],*/
     // 禁止 if 作为唯一的语句出现在 else 语句中
     "no-lonely-if": "warn",
     // 禁止空格和 tab 的混合缩进
     "no-mixed-spaces-and-tabs": "warn",
     // 禁止出现多行空行
     "no-multiple-empty-lines": "warn",
-    // 禁止出现;
-    semi: ["warn", "never"],
+    // 行尾分号设置
+    semi: 0,
+    // 单引号
+    quotes: 1,
+    // 未定义变量设置
+    "no-undef": 0,
     // 强制在块之前使用一致的空格
     "space-before-blocks": "warn",
     // 强制在 function的左括号之前使用一致的空格
@@ -895,6 +944,14 @@ module.exports = {
     defineExpose: "readonly",
     withDefaults: "readonly",
   },
+  overrides: [
+    {
+      files: ["src/views/**/*.vue"],
+      rules: {
+        "vue/multi-word-component-names": 0,
+      },
+    },
+  ],
 };
 ```
 
@@ -928,17 +985,24 @@ yarn add eslint-config-prettier --dev
 ```
 
 #### 3）项目下新建 .prettier.js
-
 - 配置 prettier 格式化规则:
-
 ```js
 module.exports = {
   tabWidth: 2,
   jsxSingleQuote: true,
+  // Jsx的<>括号是否同一行
   jsxBracketSameLine: true,
-  printWidth: 100,
+  // 是否在对象属性添加空格
+  bracketSpacing: true,
+  // 指定代码换行的行长度。单行代码宽度超过指定的最大宽度，将会换行，
+  // 可以添加 "proseWrap": "never"禁用换行
+  // "printWidth": 160,
+  // 是否在语句末尾打印分号
+  semi: true,
+  // 是否使用单引号
   singleQuote: true,
-  semi: false,
+  // 尾行逗号
+  trailingComma: "es5",
   overrides: [
     {
       files: "*.json",
@@ -949,10 +1013,10 @@ module.exports = {
   ],
   arrowParens: "always",
 };
+
 ```
 
 #### 4）项目下新建 .prettierignore
-
 ```ignore
 # 忽略格式化文件 (根据项目需要自行添加)
 node_modules
@@ -960,7 +1024,6 @@ dist
 ```
 
 #### 5）package.json 新增配置
-
 ```json
 {
   "script": {
@@ -971,7 +1034,6 @@ dist
 ```
 
 #### 6）测试使用
-
 ```dotenv
 # eslint 检查
 pnpm lint
@@ -993,9 +1055,6 @@ pnpm prettier
 ### 14.4 配置stylelint，规范样式代码
 
 css的书写顺序很重要，会影响浏览器的渲染。正确的书写可以减少浏览器的回流，提升浏览器的dom渲染。
-> https://juejin.cn/post/6995973631238995998
-
-> [浏览器执行css代码顺序](https://www.cnblogs.com/liangpi/p/12365633.html)
 
 Stylelint与ESLint类似，都与Prettier规则有冲突，stylelint-config-prettier可以解决这些冲突
 

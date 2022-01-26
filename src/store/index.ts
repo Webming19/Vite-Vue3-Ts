@@ -1,9 +1,7 @@
-import { defineStore } from "pinia";
+import { createPinia } from "pinia";
+import piniaPersisted from "pinia-plugin-persistedstate";
 
-export const useDefaultStore = defineStore({
-  // 不同仓库使用id区分
-  id: "default-store",
-  state: () => ({}),
-  getters: {},
-  actions: {},
-});
+const store = createPinia();
+store.use(piniaPersisted);
+
+export default store;

@@ -13,4 +13,16 @@ export const useUserStore = defineStore({
     },
   },
   actions: {},
+  persist: {
+    key: "name-key",
+    storage: sessionStorage,
+    paths: ["name", "age"],
+    // overwrite: true,
+    beforeRestore: (context) => {
+      console.log("Before hydration...");
+    },
+    afterRestore: (context) => {
+      console.log("After hydration...");
+    },
+  },
 });

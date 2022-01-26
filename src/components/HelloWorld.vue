@@ -1,6 +1,10 @@
 <script lang="ts" setup>
 import login from "@/apis/login";
 
+// 引入userStore仓库
+import { useUserStore } from "@/store/modules/user";
+const userStore = useUserStore();
+
 const clickLogin = () => {
   login({ username: "ls", password: "456" }).then((res) => {
     // res.data && sessionStorage.setItem('Authorization', res.data.result.accessToken)
@@ -25,7 +29,9 @@ const vl2 = ref("y=x^2-1");
       <el-date-picker v-model="value1" type="date" placeholder="Pick a day">
       </el-date-picker>
     </div>
-    <div class="box">111</div>
+    <div class="box" @click="userStore.age++">
+      {{ userStore.name }}|{{ userStore.age }}
+    </div>
   </div>
 </template>
 
