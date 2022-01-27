@@ -5,11 +5,11 @@
 
 ## 1.默认描述
 
-### 推荐的 IDE 设置
+### 1）推荐的VScode设置
 
 - [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
 
-### 类型支持 TS 中的 `.vue` 导入
+### 2）类型支持 TS 中的 `.vue` 导入
 
 由于 TypeScript 无法处理 .vue 导入的类型信息，
 默认情况下，它们被填充为通用的 Vue 组件类型。
@@ -31,19 +31,24 @@ pnpm i
 # 启动本地服务
 yarn serve
 
-# 修复代码
-yarn lint
-
 # 测试服务器打包
 yarn build:test
-
 # 感知网(东区/西区)服务器打包
 yarn build:perceive-east
 yarn build:perceive-west
-
 # 公安网(东区/西区)服务器打包
 yarn build:police-east
 yarn build:police-west
+
+# 代码规范/修复
+yarn lint
+yarn prettier
+yarn style
+
+# 代码提交工具
+yarn commit
+# 打印提交日志
+yarn genlog
 ```
 
 ### 2.2 安装的插件/组件库
@@ -1108,23 +1113,23 @@ git commit -m "build: 修改vite配置"
 ```
 注意：`:`后的空格不可少
 
+其他Git规范参考后端代码规范，此处不过多赘述
 
-
-
-
-
-
-## n.xxx
-
-src 文件内容
+## 15.src 文件内容
 
 ```tree
 ├─src
+  ├─apis
+  ├─assets
+  │  └─icons
   ├─components
   │  └─svg
   ├─router
   ├─store
+  │  └─modules
   ├─styles
   ├─utils
+  │  └─http
+  │      └─axios
   └─views
 ```
