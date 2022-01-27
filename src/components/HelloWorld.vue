@@ -33,6 +33,7 @@ const vl2 = ref("y=x^2-1");
       {{ userStore.name }}|{{ userStore.age }}
     </div>
   </div>
+  <div>test</div>
 </template>
 
 <style scoped lang="scss">

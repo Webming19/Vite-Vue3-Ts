@@ -14,6 +14,8 @@
     "lint": "eslint src --fix --ext .ts,.tsx,.vue,.js,.jsx",
     "style": "stylelint --fix **/*.{vue,css,scss}",
     "prettier": "prettier --write .",
+    "commit": "git add . && git cz",
+    "genlog": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -26,11 +28,17 @@
     "vue-router": "^4.0.12"
   },
   "devDependencies": {
+    "@commitlint/cli": "^16.1.0",
+    "@commitlint/config-conventional": "^16.0.0",
+    "@types/node": "^17.0.12",
     "@types/nprogress": "^0.2.0",
     "@typescript-eslint/eslint-plugin": "^5.10.0",
     "@typescript-eslint/parser": "^5.10.0",
     "@vitejs/plugin-vue": "^2.0.0",
     "autoprefixer": "^10.4.2",
+    "commitizen": "^4.2.4",
+    "conventional-changelog-cli": "^2.2.2",
+    "cz-conventional-changelog-zh": "^0.0.2",
     "eslint": "^8.7.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
@@ -55,8 +63,14 @@
     "vite-plugin-svg-icons": "^1.1.0",
     "vue-tsc": "^0.29.8"
   },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog-zh"
+    }
+  },
   "husky": {
     "hooks": {
+      "commit-msg": "commitlint",
       "pre-commit": "lint-staged"
     }
   },
