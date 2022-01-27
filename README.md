@@ -1077,8 +1077,36 @@ stylelint-scss@4.1.0
 ```
 在`lint-staged`中增加`"yarn style"`，在代码提交前规范代码
 
+### 14.5 Git提交规范
+项目配置了可视化的Git提交方案，命令行输入`yarn commit`开始提交代码，按照提示选取本次提交信息
 
+也可以使用命令行、编辑器/IDE工具提交代码，代码描述需要按照如下标准，否则无法提交
+```dotenv
+git commit -m "<type>[optional scope]: <description>"
+```
 
+`type `：用于表明我们这次提交的改动类型（必填项）
+
+`optional scope`：一个可选的修改范围。用于标识此次提交主要涉及到代码中哪个模块。(非必填)
+
+`description`：描述此次提交的主要内容，做到言简意赅。（必填项）
+
+常用的 type 类型:
+- `feat`：新增功能
+- `fix`：bug 修复
+- `refactor`：重构代码(既没有新增功能，也没有修复 bug)
+- `chore`：不属于以上类型的其他类型/非src修改
+- `revert`：回滚某个更早之前的提交
+- `docs`：README等文档更新
+- `delete`：删除文件
+
+例如：
+```dotenv
+git commit -m "fix(login): 修复login的xxxbug"
+git commit -m "feat(login): 新增登录功能/页面"
+git commit -m "build: 修改vite配置"
+```
+注意：`:`后的空格不可少
 
 
 
