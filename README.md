@@ -55,7 +55,7 @@ yarn genlog
 
 #### 2.2.1 [element-plus](https://element-plus.gitee.io/zh-CN/component/button.html)
 
-Element 支持 Vue3 的版本，由于 element-plus 是 beta 版本，所以不强制使用，后续做更改；
+Element 支持 Vue3.2 的版本，Element-plus的测试标志已经去除，推荐使用。
 
 当然，也可以使用[ant-design-vue](https://next.antdv.com/docs/vue/migration-v3-cn )的 v2/v3(beta)版本，但是不建议使用 v2，因为它不支持 vue3 的新特性
 
@@ -1115,7 +1115,7 @@ git commit -m "build: 修改vite配置"
 
 其他Git规范参考后端代码规范，此处不过多赘述
 
-## 15.src 文件内容
+## 15. src 文件内容
 
 ```tree
 ├─src
