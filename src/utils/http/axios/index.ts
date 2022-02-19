@@ -64,6 +64,7 @@ interface ResType<T> {
   msg: string;
   data?: T;
 }
+
 interface Http {
   get<T>(url: string, config?: AxiosRequestConfig): Promise<ResType<T>>;
   delete<T>(url: string, config?: AxiosRequestConfig): Promise<ResType<T>>;
@@ -72,7 +73,7 @@ interface Http {
     data?: any,
     config?: AxiosRequestConfig
   ): Promise<ResType<T>>;
-  put<T>(
+  patch<T>(
     url: string,
     data?: any,
     config?: AxiosRequestConfig
@@ -126,11 +127,11 @@ const http: Http = {
         });
     });
   },
-  put<T>(url: string, data: any, config?: AxiosRequestConfig) {
+  patch<T>(url: string, data: any, config?: AxiosRequestConfig) {
     return new Promise((resolve, reject) => {
       NProgress.start();
       axios
-        .put(url, data, config)
+        .patch(url, data, config)
         .then((res) => {
           NProgress.done();
           resolve(res.data);
