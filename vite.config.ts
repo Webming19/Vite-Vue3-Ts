@@ -10,6 +10,7 @@ import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 import viteSvgIcons from "vite-plugin-svg-icons";
 // 压缩插件
 import viteCompression from "vite-plugin-compression";
+// @ts-ignore
 import path from "path";
 
 // 重写resolve方法
@@ -57,4 +58,12 @@ export default defineConfig({
     // 压缩插件
     viteCompression(),
   ],
+  // 配置主机地址
+  server: {
+    host: 'localhost',
+    port: 3008, // 你需要定义的端口号
+    open: true, // open支持boolean/string类型，为true时打开默认浏览器，为string类型时，打开指定浏览器，具体查看官网即可
+    // 配置本地代理地址
+    // proxy: {}
+  },
 });
