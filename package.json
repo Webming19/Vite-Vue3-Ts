@@ -68,18 +68,14 @@
       "path": "./node_modules/cz-conventional-changelog-zh"
     }
   },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint",
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
     "src/**/*.{js,jsx,vue,ts,tsx}": [
       "yarn lint",
       "yarn style",
       "prettier --write",
       "git add ."
-    ]
+    ],
+    "*.{ts,tsx,vue,js,jsx}": "eslint --cache --fix",
+    "*.css": "stylelint --fix"
   }
 }
