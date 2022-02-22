@@ -66,8 +66,8 @@ interface ResType<T> {
 }
 
 interface Http {
-  get<T>(url: string, config?: AxiosRequestConfig): Promise<ResType<T>>;
-  delete<T>(url: string, config?: AxiosRequestConfig): Promise<ResType<T>>;
+  get<T>(url: string, params: any): Promise<ResType<T>>;
+  delete<T>(url: string, params: any): Promise<ResType<T>>;
   post<T>(
     url: string,
     data?: any,
@@ -82,7 +82,7 @@ interface Http {
 
 const http: Http = {
   // 可以将params写入config
-  get<T>(url: string, params: T) {
+  get<T>(url: string, params: any) {
     return new Promise((resolve, reject) => {
       NProgress.start();
       axios
